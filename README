@@ -1,0 +1,96 @@
+avishavtal
+eviatarc
+
+
+=============================
+=      File description     =
+=============================
+
+_____________________________
+filesprocessing package files
+_____________________________
+DirectoryProcessor.java - the class that manage the main method and recive the input
+SectionFactory.java - a factory for sections
+Section.java - a section object class
+Order.java - an order object class also an order factory
+FilterTypes - abstract class of filter object
+
+________________________________________
+filter types that extend the FilterTypes
+________________________________________
+FilterPrefixSuffix.java
+FilterGreatherOrSmaller.java
+FilterFile.java
+FilterContains.java
+FilterBetween.java
+FilterAll.java
+FilterWritableOrExecutableOrHidden.java
+
+_________________
+Exceptions files:
+_________________
+filesprocessing.BadBooleanParameters
+filesprocessing.BadSubSectionName
+filesprocessing.InvalidUsage
+filesprocessing.NegativeNumber
+filesprocessing.NoSuchFilter
+filesprocessing.NoSuchOrder
+filesprocessing.Type1Exceptions
+filesprocessing.Type2Exceptions
+filesprocessing.WrongOrderOfParameters
+
+___________________________
+stringManipulations package
+___________________________
+Split.java - a class that has static method that splits a given string by a given char
+
+
+=============================
+=          Design           =
+=============================
+we decided to use the factory principle in few different places, whenever is needed to use one to a
+differnet subject.we made a section factory that genareate the sections with the filters and the order s
+object.
+we made a filter factory that creates a filter out of a given string that described the wanted filter
+we made inside the order class a small factory for different kinds of orders.
+our factories are implement the single choise pricipel if any one of them (a section/ an order/ a filter)
+ needed to be add it is very easy, its close to changes and if any each of them do needed to be change
+ it is very cclear where to change it and weach factory needed to be change in a single place
+ (very relied on the switch loop)
+
+the TypeFilter is an abstract class so it is very much uses the modularity pricipel,
+ very easy to add a new kind of filter.
+ the Order class is a small factory for orders too.
+
+ our design was originally and even improved during the work based all the way on the factory
+ pricipel, the single choice principel (when we didnt had any other choice or a better solution
+ like in the factories in the switch loop), the mudolarity was all the way also a guiding line to
+ us also during the implemantations, even this principle we decided to do some filters in the
+ same subclass to prevent code duplication and becuase the ones was too similar to get thier own class
+ for future work on this files and program i will remained future us that if ever needed to add new
+ kinds of filter types (different number of argumants or more complex functions inside its filtering method)
+ to give each new kind that dont match previues kinds its own class with suitable behavier and features.
+
+
+=============================
+=  Implementation details   =
+=============================
+we implement our design very detailed but met many kinds of syntaxical disorders that made
+us change a bit the way of throwing exceptions and made us qwustion how good is our design all the way.
+
+a major part of our implementation was to improve our existed design since we met many new features of java
+and needed even to implement a split function that its concept we met in python before - that was
+really usfull to handle each string that needed to recive its data (that holds many oieces of data.
+
+=============================
+=    Answers to questions   =
+=============================
+1.explained above
+2. the Exceptions we decided to do each exception independet beacuse they have nothing in common beside
+ the way of dealing each one, we made tow wrapper classes for the exceptions (Type1 and Type2) so we
+ can manage thier behavier, this way is very modulary (easy to change one specific, to addd
+  a new one or to remove one).
+3. we read all the files from the given file into an array and than:
+any filter checks if a the current reading file is a directory (if so it will ignore it,
+returns that it didnt pass the filter), than after filtering the array the order object is
+ ordering the array that remain after filtering it.
